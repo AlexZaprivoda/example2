@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var computerNum = localStorage.getItem("keyComputerNum"); //обьявляет переменную computerNum и присваиваяет ей значение ячейки keyComputerNum локального хранилища
+      var computerNum2 = localStorage.getItem("keyComputerNum2"); //--//
+
+      var win = localStorage.getItem("win"); //обьявляет переменную win и присваивает ей значение ячейки win локального хранилища
+      var lose = localStorage.getItem("lose"); //--//
+
+      computerNum = computerNum ? +computerNum : Math.round(Math.random() * 10); //присвавает значение переменной согласно условия:
+      //если переменная computerNum возвращает что-то(отличное от NaN, null, undefined, 0), то присваеваем значение с возвращением целого числа
+      //если не возвращает - то присвавает значение случайного числа(от 0 до 9.(9)) умноженного на 10, а затем округленного до целого числа)
+
+      computerNum2 = computerNum2
+        ? +computerNum2
+        : Math.round(Math.random() * 10); //--//
+
+      win = win ? +win : 0; ///присвавает значение переменной согласно условия:
+      //если переменная win возвращает что-то(отличное от NaN, null, undefined, 0), то присваеваем значение с возвращением целого числа
+      //если не возвращает - то присваиваем значение 0
+      lose = lose ? +lose : 0; //--//
+
+      var userNum = +prompt("try ?"); //обьявляет переменную userNum и присваивает ей преобразованное в целое число строковое значение введеное пользователем
+
+      if (userNum === computerNum) {
+        //проверяем на идентичность userNum и computerNum
+        // в случае идентичности
+        localStorage.setItem("keyComputerNum", computerNum2); //присваеваем значение переменной computerNum2 (второй рандом) для ячейки keyComputerNum, тем сам
+        // получая к новому вводу от пользователя новое значение в ячейке с ключем keyComputerNum
+        win = win + 1; //увеличиваем значение переменной win на 1
+        localStorage.setItem("win", win); //присваеваем значение переменной win (выигрыш) для ячейки локального хранилища с ключем win
+      } else {
+        // в противном случае
+        localStorage.setItem("keyComputerNum", computerNum); //присваеваем значение переменной computerNum (первый рандом) для ячейки keyComputerNum
+        lose = lose + 1; //увеличиваем значение переменной lose на 1
+        localStorage.setItem("lose", lose); //присваеваем значение переменной lose (проигрыш) для ячейки локального хранилища с ключем lose
+      }
+
+      if (win) {
+        //проверяем, если переменная win что-то возвращает(отличное от NaN, null, undefined, 0), то делаем запись в документ
+
+        document.write(
+          "<h1 style='color:green'> Победы: " +
+            localStorage.getItem("win") +
+            "</h1><br/>"
+        );
+        //проверяем если переменная lose что-то возвращает(отличное от NaN, null, undefined, 0), то делаем запись в документ
+
+        if (lose) {
+          document.write(
+            "<h1 style='color:red'> Поражения: " +
+              localStorage.getItem("lose") +
+              "</h1><br/>"
+          );
+        }
+      } //в противном случае выводим поражения
+      else
+        document.write(
+          "<h1 style='color:red'> Поражения: " +
+            localStorage.getItem("lose") +
+            "</h1><br/>"
+        );
+    </script>
+  </body>
+</html>
